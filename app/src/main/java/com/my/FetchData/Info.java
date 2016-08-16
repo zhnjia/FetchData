@@ -1,5 +1,6 @@
 package com.my.FetchData;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -14,6 +15,7 @@ import android.widget.RadioButton;
 /**
  * Created by jiazhang on 5/30/16.
  */
+@SuppressLint({"NewApi", "ValidFragment"})
 public class Info extends DialogFragment {
     public enum Type {
         ADD,
@@ -30,11 +32,13 @@ public class Info extends DialogFragment {
     private String mTitle = "title";
     private String mUrl = "url";
 
+    @SuppressLint({"NewApi", "ValidFragment"})
     public Info(Type type, Listener l) {
         mType = type;
         mListener = l;
     }
 
+    @SuppressLint({"NewApi", "ValidFragment"})
     public Info(String title, String url, Type type, Listener l) {
         mType = type;
         mTitle = title;

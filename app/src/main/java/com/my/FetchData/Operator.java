@@ -1,5 +1,6 @@
 package com.my.FetchData;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 /**
  * Created by jiazhang on 5/31/16.
  */
+@SuppressLint({"NewApi", "ValidFragment"})
 public class Operator extends DialogFragment {
     public enum Op {
         EDIT,

@@ -6,9 +6,11 @@ import android.app.SearchableInfo;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.pm.ProviderInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -21,8 +23,8 @@ import java.util.List;
 public class FetchData extends Activity
 {
     private static final String TAG = "FetchData";
-    private static final String PACKAGE_NAME = "com.android.browser";
-    private static final String PROVIDER_PATH = "/bookmarks";
+    private static final String AUTHORITY = "com.android.browser";
+    private static final String PROVIDER_PATH = "bookmarks";
     /** Called when the activity is first created. */
     private Cursor bmksCursor;
     SimpleCursorAdapter adapter;
@@ -33,6 +35,8 @@ public class FetchData extends Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        //testfunc();
 
         list = (ListView) findViewById(R.id.listview);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -144,7 +148,7 @@ public class FetchData extends Activity
     private Uri genUri(String path) {
         Uri.Builder builder = new Uri.Builder()
                 .scheme(ContentResolver.SCHEME_CONTENT)
-                .authority(PACKAGE_NAME);
+                .authority(AUTHORITY);
         return builder.appendEncodedPath(path).build();
     }
 
@@ -153,7 +157,7 @@ public class FetchData extends Activity
         List<SearchableInfo> searchableInfos = searchManager.getSearchablesInGlobalSearch();
         if (searchableInfos == null) return null;
         for (SearchableInfo si : searchableInfos) {
-            if (si.getSuggestAuthority().equals(PACKAGE_NAME)) {
+            if (si.getSuggestAuthority().equals(AUTHORITY)) {
                 Uri.Builder builder = new Uri.Builder()
                         .scheme(ContentResolver.SCHEME_CONTENT)
                         .authority(si.getSuggestAuthority());
@@ -165,6 +169,14 @@ public class FetchData extends Activity
             }
         }
         return null;
+    }
+
+    private void testfunc() {
+        ProviderInfo pi = getPackageManager().resolveContentProvider(AUTHORITY, 0);
+        if (pi != null) {
+            Log.d("zjzjzj", pi.readPermission);
+            Log.d("zjzjzj", pi.writePermission);
+        }
     }
 
     @Override

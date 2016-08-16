@@ -1,19 +1,29 @@
 apply plugin: 'com.android.application'
-
 android {
+    signingConfigs {
+        config {
+            keyAlias 'signforzhnjia'
+            keyPassword '123459'
+            storeFile file('/home/jiazhang/workspace/key/keystore_android_jiazhang.keystore')
+            storePassword '123459'
+        }
+    }
     compileSdkVersion 14
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.my.FetchData"
         minSdkVersion 8
         targetSdkVersion 19
     }
-
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            signingConfig signingConfigs.config
+            zipAlignEnabled true
         }
     }
+}
+
+dependencies {
 }
